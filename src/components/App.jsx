@@ -42,6 +42,8 @@ export default function App() {
     setSelectedImage(null)
   }
 
+
+
   useEffect(() => {
     if (topic === "") {
       return
@@ -52,10 +54,16 @@ export default function App() {
         setIsError(false);
         setIsLoading(true);
         const data = await fetchImages(topic, currentPage);
+
+        if (data.results.length === 0 && currentPage === 1) {
+          toast.error("No results found for your search query.");
+        }
+
         setImages((prevImages) => {
           return [...prevImages, ...data.results];
         })
         setTotalPages(data.total_pages);
+
       } catch {
         setIsError(true);
         toast.error("Something went wrong. Please try later.");
@@ -65,17 +73,18 @@ export default function App() {
     }
     fetchData();
   }, [topic, currentPage])
-  
-  const isLastPage = currentPage !== totalPages;
+
+  const isLastPage = currentPage === totalPages;
   const hasImages = images.length > 0;
-  
+ 
   return (
     <div className={css.container}>
+      <Toaster />
       <SearchBar onSearch={handleSearch} />
       {isError && <ErrorMessage />}
       {hasImages && <ImageGallery items={images} openModal={openModal} />}
       {isLoading && <Loader />}
-      {hasImages && !isLoading && isLastPage && <LoadMoreBtn onClick={incrementPage} />}
+      {hasImages && !isLoading && !isLastPage && <LoadMoreBtn onClick={incrementPage} />}
       {selectedImage && (<ImageModal
         isOpen={isModalOpen}
         onClose={closeModal}

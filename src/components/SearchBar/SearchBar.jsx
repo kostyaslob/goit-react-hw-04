@@ -17,13 +17,13 @@ export default function SearchBar({ onSearch }) {
             }}
         >
             <Form className={css.form}>
-                <Field
+                <Field className={css.field}
                     type="text"
                     name="topic"
                     placeholder="Search images and photos"
                     
                     />
-                <button type="submit">Search</button>
+                <button className={css.button}type="submit">Search</button>
                 <Toaster />
             </Form>
         </Formik>
