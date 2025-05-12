@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import { fetchImages } from "./images-api";
 
 import toast, { Toaster } from 'react-hot-toast';
-// import Modal from 'react-modal';
-
 
 import SearchBar from "./SearchBar/SearchBar";
 import ImageGallery from "./ImageGallery/ImageGallery";
@@ -64,7 +62,7 @@ export default function App() {
       {isError && <ErrorMessage/>}
       {hasImages && <ImageGallery items={images} />}
       {isLoading && <Loader />}
-      {hasImages > 0 && !isLoading && isLastPage && (
+      {hasImages && !isLoading && isLastPage && (
         <LoadMoreBtn onClick={incrementPage} />
       )}
     </div>
