@@ -1,9 +1,9 @@
-// import css from "./ImageCard.module.css";
+import css from "./ImageCard.module.css";
 
-export default function ImageCard() {
+export default function ImageCard({ data }) {
     return (
         <div>
-            <img src="" alt="" />
+            <img className={css.image} src={data.urls.small} alt={data.alt_description} />
         </div>
     )
 }
