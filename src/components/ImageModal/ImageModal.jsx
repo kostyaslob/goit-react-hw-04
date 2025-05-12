@@ -18,7 +18,7 @@ export default function ImageModal({ isOpen, onClose, image }) {
       shouldCloseOnOverlayClick={true} 
       shouldCloseOnEsc={true}
     >
-        <img src={image.urls.regular} alt={image.alt_description} />
+      <img src={image.urls.regular} alt={image.alt_description} />
     </Modal>
   );
 }

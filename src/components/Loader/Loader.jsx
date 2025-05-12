@@ -5,7 +5,6 @@ export default function Loader() {
     return (
         <ScaleLoader
             color="coral"
-            barCount={10}
             width={6} />
     )
 }

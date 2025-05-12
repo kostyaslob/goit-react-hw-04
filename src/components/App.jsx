@@ -79,7 +79,7 @@ export default function App() {
  
   return (
     <div className={css.container}>
-      <Toaster />
+      <Toaster position="top-right"/>
       <SearchBar onSearch={handleSearch} />
       {isError && <ErrorMessage />}
       {hasImages && <ImageGallery items={images} openModal={openModal} />}

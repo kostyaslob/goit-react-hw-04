@@ -24,7 +24,6 @@ export default function SearchBar({ onSearch }) {
                     
                     />
                 <button className={css.button}type="submit">Search</button>
-                <Toaster />
             </Form>
         </Formik>
     );

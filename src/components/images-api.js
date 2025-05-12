@@ -11,6 +11,6 @@ export const fetchImages = async (topic, currentPage ) => {
             per_page: 8,
             client_id: ACCESS_KEY
           }
-    })
+      })
     return response.data
 }   
