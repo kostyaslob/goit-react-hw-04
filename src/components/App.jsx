@@ -54,15 +54,19 @@ export default function App() {
     }
     fetchData();
     }, [topic, currentPage])
-
+  
+  const isLastPage = currentPage !== totalPages;
+  const hasImages = images.length > 0;
   
   return (
     <div className={css.container}>
       <SearchBar onSearch={handleSearch} />
       {isError && <ErrorMessage/>}
-      {images.length > 0 && <ImageGallery items={images} />}
+      {hasImages && <ImageGallery items={images} />}
       {isLoading && <Loader />}
-      {images.length > 0 && !isLoading && <LoadMoreBtn onClick={incrementPage} />}
+      {hasImages > 0 && !isLoading && isLastPage && (
+        <LoadMoreBtn onClick={incrementPage} />
+      )}
     </div>
   );
 };
