@@ -13,14 +13,12 @@ export default function ImageModal({ isOpen, onClose, image }) {
       isOpen={isOpen}
       onRequestClose={handleClose} 
       contentLabel="Image Modal"
-      className={css.modalContent}
-      overlayClassName={css.modalOverlay}
+      className={css.modal}
+      overlayClassName={css.overlay}
       shouldCloseOnOverlayClick={true} 
       shouldCloseOnEsc={true}
     >
-      <div className={css.modalContainer}>
         <img src={image.urls.regular} alt={image.alt_description} />
-      </div>
     </Modal>
   );
 }

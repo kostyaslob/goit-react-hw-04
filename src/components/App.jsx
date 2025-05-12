@@ -9,6 +9,7 @@ import ImageGallery from "./ImageGallery/ImageGallery";
 import Loader from "./Loader/Loader";
 import ErrorMessage from "./ErrorMessage/ErrorMessage"
 import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn"
+import ImageModal from "./ImageModal/ImageModal";
 
 export default function App() {
   const [images, setImages] = useState([]);
@@ -18,15 +19,27 @@ export default function App() {
   
   const [topic, setTopic] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSearch = async (newTopic) => {
     setTopic(newTopic);
     setCurrentPage(1);
-    setImages([]);  
+    setImages([]);
   };
 
   const incrementPage = () => {
     setCurrentPage(currentPage + 1)
+  }
+
+  const openModal = (image) => {
+    setSelectedImage(image);
+    setIsModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImage(null)
   }
 
   useEffect(() => {
@@ -42,7 +55,7 @@ export default function App() {
         setImages((prevImages) => {
           return [...prevImages, ...data.results];
         })
-          setTotalPages(data.total_pages);
+        setTotalPages(data.total_pages);
       } catch {
         setIsError(true);
         toast.error("Something went wrong. Please try later.");
@@ -51,7 +64,7 @@ export default function App() {
       }
     }
     fetchData();
-    }, [topic, currentPage])
+  }, [topic, currentPage])
   
   const isLastPage = currentPage !== totalPages;
   const hasImages = images.length > 0;
@@ -59,12 +72,16 @@ export default function App() {
   return (
     <div className={css.container}>
       <SearchBar onSearch={handleSearch} />
-      {isError && <ErrorMessage/>}
-      {hasImages && <ImageGallery items={images} />}
+      {isError && <ErrorMessage />}
+      {hasImages && <ImageGallery items={images} openModal={openModal} />}
       {isLoading && <Loader />}
-      {hasImages && !isLoading && isLastPage && (
-        <LoadMoreBtn onClick={incrementPage} />
-      )}
+      {hasImages && !isLoading && isLastPage && <LoadMoreBtn onClick={incrementPage} />}
+      {selectedImage && (<ImageModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        image={selectedImage}
+      />
+      )}    
     </div>
   );
-};
+}
