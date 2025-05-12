@@ -1,7 +1,6 @@
 import css from "./App.module.css";
 import { useState, useEffect } from 'react';
 import { fetchImages } from "./images-api";
-
 import toast, { Toaster } from 'react-hot-toast';
 
 import SearchBar from "./SearchBar/SearchBar";
@@ -41,8 +40,6 @@ export default function App() {
     setIsModalOpen(false);
     setSelectedImage(null)
   }
-
-
 
   useEffect(() => {
     if (topic === "") {
